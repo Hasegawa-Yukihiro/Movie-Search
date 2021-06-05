@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+//  providers
+import Providers from "./views/Providers";
+
 //  Route
 import OrigRoute from "./views/Route/";
 
@@ -8,8 +11,8 @@ import OrigRoute from "./views/Route/";
 import "../public/style.css";
 
 ReactDOM.render(
-  <div>
+  <Providers>
     <OrigRoute />
-  </div>,
+  </Providers>,
   document.getElementById("root")
 );
