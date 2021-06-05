@@ -1,10 +1,12 @@
 import React from "react";
-import { Button } from "@material-ui/core";
+
+// atomic components
+import { SearchInput } from "~views/Components/Atoms/SearchInput";
 
 const Home = () => {
   return (
     <div>
-      <Button>TEST</Button>
+      <SearchInput />
     </div>
   );
 };

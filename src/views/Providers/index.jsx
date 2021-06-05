@@ -2,14 +2,12 @@ import React from "react";
 
 //  providers
 import Router from "./Router";
-// import ThemeProvider from "./Theme";
+import Theme from "./Theme";
 
 const Providers = props => {
   return (
     <Router>
-      {/* <ThemeProvider> */}
-      {props.children}
-      {/* </ThemeProvider> */}
+      <Theme>{props.children}</Theme>
     </Router>
   );
 };
