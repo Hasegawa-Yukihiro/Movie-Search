@@ -1,3 +1,3 @@
-import SearchInput from "./styles";
+import { SearchInput } from "./styles";
 
 export { SearchInput };

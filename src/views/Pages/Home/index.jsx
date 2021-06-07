@@ -1,14 +1,10 @@
 import React from "react";
 
 // atomic components
-import { SearchInput } from "~views/Components/Atoms/SearchInput";
+import { HomeTemplate } from "~views/Components/Template/HomeTemplate";
 
 const Home = () => {
-  return (
-    <div>
-      <SearchInput />
-    </div>
-  );
+  return <HomeTemplate title={"Movie Search"} />;
 };
 
 export default Home;
