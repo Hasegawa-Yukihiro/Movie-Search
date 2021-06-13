@@ -3,11 +3,14 @@ import React from "react";
 //  providers
 import Router from "./Router";
 import Theme from "./Theme";
+import SnackbarProvider from "./Snackbar";
 
 const Providers = props => {
   return (
     <Router>
-      <Theme>{props.children}</Theme>
+      <Theme>
+        <SnackbarProvider>{props.children}</SnackbarProvider>
+      </Theme>
     </Router>
   );
 };

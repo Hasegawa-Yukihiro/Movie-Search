@@ -1,80 +1,101 @@
 import React from "react";
 
+//  hooks
+import { useSnackbar } from "~snackbar/hooks";
+
 export const useHooks = () => {
+  //  hooks
+  const { errorMessage } = useSnackbar();
+  /** 🟢 useRef */
+  const searchInputRef = React.useRef();
+
   // constants
   const MOVIE_API_URL = "https://www.omdbapi.com/?s=man&apikey=4a3b711b";
 
   //  states
+  /**🟢 useState */
   const [movies, setMovies] = React.useState([]);
-  const [searchValue, setSearchValue] = React.useState("");
 
-  /** @description 検索欄入力値の取得 */
-  const handleSearchInputChanges = React.useCallback(e => {
-    setSearchValue(e.target.value);
-  }, []);
-
-  /** @description 検索欄の入力値リセット */
-  const resetInputField = React.useCallback(() => {
-    setSearchValue("");
-  }, []);
-
-  /** @description 検索アイコン押下後のsubmit */
-  const callSearchFunction = React.useCallback(
-    e => {
-      e.preventDefault();
-      console.log(searchValue);
-      search(searchValue);
-      resetInputField();
-    },
-    [searchValue, resetInputField]
-  );
-
-  const search = React.useCallback(searchValue => {
-    fetch(`https://www.omdbapi.com/?s=${searchValue}&apikey=4a3b711b`)
-      .then(response => response.json())
-      .then(jsonResponse => {
-        if (jsonResponse.Response === "True") {
-          setMovies(jsonResponse.Search);
-        } else {
-          console.log(jsonResponse.Error);
-        }
-      });
-  }, []);
-
-  const handleKeyDown = React.useCallback(
-    e => {
-      if (e.keyCode === 13) {
-        search(searchValue);
-        resetInputField();
-      }
-    },
-    [searchValue, search, resetInputField]
-  );
-
-  React.useEffect(() => {
+  /** @description fetch */
+  const fetchAction = React.useCallback(() => {
     fetch(MOVIE_API_URL)
       .then(response => response.json())
       .then(jsonResponse => {
         setMovies(jsonResponse.Search);
+      })
+      .catch(e => {
+        console.log(e);
       });
   }, []);
 
+  /** @description 検索欄入力値リセット */
+  const resetSearchInputRef = React.useCallback(e => {
+    searchInputRef.current.value = "";
+  }, []);
+
+  /** @description 映画検索イベント */
+  const search = React.useCallback(
+    searchValue => {
+      fetch(`https://www.omdbapi.com/?s=${searchValue}&apikey=4a3b711b`)
+        .then(response => response.json())
+        .then(jsonResponse => {
+          if (jsonResponse.Response === "True") {
+            setMovies(jsonResponse.Search);
+          } else {
+            errorMessage(jsonResponse.Error);
+          }
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    [errorMessage]
+  );
+
+  /** @description 検索アイコン押下後のsubmit */
+  /**🟢 useCallback  */
+  const callSearchFunction = React.useCallback(
+    e => {
+      e.preventDefault();
+      search(searchInputRef.current.value);
+      resetSearchInputRef();
+    },
+    [searchInputRef, search, resetSearchInputRef]
+  );
+
+  /** @description エンターキー押下後のイベント */
+  const handleKeyDown = React.useCallback(
+    e => {
+      if (e.keyCode === 13) {
+        search(searchInputRef.current.value);
+        resetSearchInputRef();
+      }
+    },
+    [searchInputRef, search, resetSearchInputRef]
+  );
+
+  /**🟢 useEffect */
+  React.useEffect(() => {
+    fetchAction();
+  }, [fetchAction]);
+
+  /**🟢 useMemo  */
   const stateData = React.useMemo(() => {
     return {
-      movies,
-      searchValue
+      movies
     };
-  }, [movies, searchValue]);
+  }, [movies]);
 
   const handler = React.useMemo(() => {
     return {
-      handleSearchInputChanges,
       callSearchFunction,
-      handleKeyDown
+      handleKeyDown,
+      fetchAction
     };
-  }, [handleSearchInputChanges, callSearchFunction, handleKeyDown]);
+  }, [callSearchFunction, handleKeyDown, fetchAction]);
 
   return {
+    searchInputRef,
     stateData,
     handler
   };

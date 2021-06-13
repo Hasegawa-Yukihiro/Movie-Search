@@ -44,6 +44,7 @@ const config = {
     //  エイリアスの指定 , 特定のモジュールをより簡単にインポートすることができる
     alias: {
       "~api": path.resolve(__dirname, "../src/api"),
+      "~snackbar": path.resolve(__dirname, "../src/views/Providers/Snackbar"),
       "~assets": path.resolve(__dirname, "../src/assets"),
       "~redux": path.resolve(__dirname, "../src/views/Providers/Redux/"),
       "~@types": path.resolve(__dirname, "../src/@types"),

@@ -10,8 +10,14 @@ import {
 } from "@material-ui/core/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+/**
+ * @description
+ * @param clickedSubmit submit押下後のイベント
+ * @param handleKeyDown 指定キー押下後のイベント
+ * @param searchInputRef inputのref属性
+ */
 const SearchInput = props => {
-  const { value, clickedSubmit, changeInput, handleKeyDown } = props;
+  const { clickedSubmit, handleKeyDown, searchInputRef } = props;
 
   // styles
   const classes = makeStyles(theme =>
@@ -49,10 +55,9 @@ const SearchInput = props => {
       </IconButton>
       <InputBase
         placeholder="Search…"
-        value={value}
         className={classes.inputBase}
-        onChange={changeInput}
         onKeyDown={handleKeyDown}
+        inputRef={searchInputRef}
       />
     </div>
   );

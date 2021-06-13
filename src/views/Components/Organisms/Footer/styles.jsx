@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export const MovieContentWrapper = styled.div(({ theme }) => {
+export const StyledFooter = styled.footer(({ theme }) => {
   return {
+    height: "48px",
     display: "flex",
     justifyContent: "center",
-    alignItems: "flex-end",
-    flexWrap: "wrap"
+    alignItems: "center"
   };
 });
