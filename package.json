@@ -3,13 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://Hasegawa-Yukihiro.github.io/movie-search/",
+  "homepage": "https://hasegawa-yukihiro.github.io/movie-search/",
   "scripts": {
-    "rm": "rm -rf docs",
     "start:dev": "webpack serve --config ./webpack/webpack.config.dev",
     "build:dev": "webpack --config ./webpack/webpack.config.dev.js",
     "build:prod": "webpack --config ./webpack/webpack.config.prod.js",
-    "deploy": "yarn build:dev && gh-pages -d dist"
+    "deploy": "yarn build:prod && gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
